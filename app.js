@@ -9,7 +9,7 @@ app.use((req,res,next)=>{
 
 app.use((req,res,next)=>{
     console.log('b')
-    res.send({ key1: value })
+    res.send(`<h1>Hello From ExpressJS!</h1>`)
 })
 
 
