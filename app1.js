@@ -1,22 +1,24 @@
-const express = require('express')
+const path = require('path');
 
-const adminRoute = require('./routes/admin')
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const shopRoute = require('./routes/shop')
+const app = express();
 
-const bodyParser = require('body-parser')
+const adminRoutes = require('./routes/admin');
+const shopRoutes = require('./routes/shop');
+const contacRoutes = require('./routes/contact')
+const successRoute = require('./routes/successful')
 
-const app = express()
+app.use(bodyParser.urlencoded({extended: false}));
+app.use(express.static(path.join(__dirname, 'public')))
 
-
-app.use(bodyParser.urlencoded({extended: false}))
-
-app.use('/admin', adminRoute)
-app.use('/shop', shopRoute)
-
-app.use((req,res,next)=>{
-    res.status(404).send(`<h1>Page Not Found!</h1>`)
-})
-
+app.use('/admin', adminRoutes);
+app.use(shopRoutes);
+app.use(contacRoutes)
+app.use(successRoute)
+app.use((req, res, next) => {
+    res.status(404).sendFile(path.join(__dirname, 'views', 'errorPage.html'));
+});
 
 app.listen(3000);
