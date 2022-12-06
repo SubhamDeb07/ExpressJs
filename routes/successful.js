@@ -2,10 +2,9 @@ const path = require('path');
 
 const express = require('express');
 
+const contactController = require('../Controllers/contactPage')
+
 const router = express.Router();
 
-router.get('/success', (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../', 'views', 'successful.html'));
-});
-
+router.get('/success', contactController.getSuccess)
 module.exports = router;
